@@ -1,0 +1,17 @@
+%h1.text-center #{@page.h1}
+%h3.text-center Published at #{@page.published_at.localtime.strftime '%Y-%m-%d %H:%M:%S'}
+.raw
+  .d-flex.justify-content-center
+    = link_to 'Edit this page', edit_page_path(@page), class: 'btn btn-success btn-sm', style: 'margin: 1px'
+    = link_to 'Delete this page', @page, method: :delete, class: 'btn btn-danger btn-sm', style: 'margin: 1px'
+    = link_to 'Back', :back, class: 'btn btn-primary btn-sm', style: 'margin: 1px'
+-# Blocks js (allowed only chosen tags). You can see allowed tags in helpers/page_helper.rb
+
+= sanitizer(@page.content)
+
+-# From docs: Marks a string as trusted safe. It will be inserted into HTML with no additional escaping performed.
+-# %p= @page.content.html_safe
+
+-# Forces the input to String and then calls html_safe() on it.
+-# If you want to allow all content, uncomment next string:
+-# %p= raw @page.content

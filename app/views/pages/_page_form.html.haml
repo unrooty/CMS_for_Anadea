@@ -1,0 +1,32 @@
+%table.table
+  %thead.thead-dark
+    %tr
+      %th
+        Priority
+      %th
+        Label
+      %th
+        Slug
+      %th
+        Published at
+      %th
+      %th
+  %tbody
+    - for page in @pages do
+      %tr
+        %td
+          = page.priority
+        %td
+          = link_to page.menu_label, page
+        %td
+          = page.slug
+        %td
+          = page.published_at.localtime.strftime '%Y-%m-%d %H:%M:%S'
+        %td
+          = link_to 'Edit page', edit_page_path(page), class: 'btn btn-success btn-sm'
+        %td
+          = link_to 'Delete page', page, method: :delete, class: 'btn btn-danger btn-sm'
+= link_to 'Add new page', new_page_path, class: 'btn btn-primary btn-lg'
+
+.div.text-right
+  = will_paginate @pages, class: 'apple_pagination'

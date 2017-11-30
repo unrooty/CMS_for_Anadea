@@ -1,0 +1,33 @@
+
+= bootstrap_form_for @page, inline_errors: false do |p|
+  .row
+    .col-md-8.offset-2
+      = p.errors_on :slug
+      = p.errors_on :description
+      = p.errors_on :menu_label
+      = p.errors_on :h1
+      = p.errors_on :priority
+      = p.errors_on :title
+  .row
+    .col-md-4.offset-2
+      .form-group
+        = p.text_field :title, class: 'form-control'
+      .form-group
+        = p.text_field :description, class: 'form-control'
+      .form-group
+        = p.text_field :slug, class: 'form-control'
+    .col-md-4
+      .form-group
+        = p.text_field :menu_label, class: 'form-control'
+      .form-group
+        = p.text_field :h1, class: 'form-control'
+      .form-group
+        = p.text_field :priority, class: 'form-control'
+    .col-md-8.offset-2
+      .form-group
+        = p.datetime_select :published_at, class: 'form-control'
+      .form-group
+        = p.text_area :content, class: 'form-control', rows: '10'
+      .form-group
+        = p.submit class: 'btn btn-success'
+        = link_to 'Back', :back, class: 'btn btn-primary'

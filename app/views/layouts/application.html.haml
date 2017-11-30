@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %meta{name: "#{@page.description if @page}", :content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title #{@page ? @page.title : 'CMS for Anadea' }
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %nav.navbar.navbar-expand.navbar-dark.bg-dark
+      %a.navbar-brand{href: pages_path}
+        Main page
+      %ul.nav.navbar-nav.mr-auto
+        %li.nav-item.dropdown.active
+          %a.nav-link.dropdown-toggle{href: published_pages_path,
+          role: 'button', data: { toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}}
+            Published pages
+          .dropdown-menu{aria: {labellydb: 'navbarDropdown'}}
+            - for page in @published_pages.take(5) do
+              - if page.published_at <= Time.now
+                %a.dropdown-item{href: page_path(page)}
+                  = page.menu_label
+            .dropdown-divider
+            %a.dropdown-item{href: published_pages_path} More pages
+        %li.nav-item.dropdown.active
+          %a.nav-link.dropdown-toggle{href: published_pages_path,
+          role: 'button', data: { toggle: 'dropdown'}, aria: {haspopup: 'true', expanded: 'false'}}
+            Unublished pages
+          .dropdown-menu{aria: {labellydb: 'navbarDropdown'}}
+            - for page in @unpublished_pages.take(5) do
+              - if page.published_at > Time.now
+                %a.dropdown-item{href: page_path(page)}
+                  = page.menu_label
+            .dropdown-divider
+            %a.dropdown-item{href: unpublished_pages_path} More pages
+  %body
+    %p.alert-info.text-center#alert= notice
+    = yield
